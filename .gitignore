@@ -144,7 +144,7 @@ Desktop.ini
 # Packages
 *.egg
 *.egg-info
-dist
+# dist
 build
 eggs
 parts
