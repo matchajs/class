@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>class examples</title>
+<script src="../../../dist/seajs/1.2.1/sea.js"></script>
+<script src="../../../tools/loader.js"></script>
+</head>
+
+<body>
+<div id="J_testDiv"></div>
+<script>
+seajs.use(['../src/class'], function(Class){
+	var testEl = document.getElementById('J_testDiv');
+	function appendTxt(str) {
+		testEl.innerHTML += '<p>' + str + '</p>';
+	}
+	
+    var Flyable = {
+        fly: function() {
+            appendTxt('我飞起来了');
+        }
+    };
+    
+    var Pig = Class.create({
+        Statics:{
+            title:'A1'
+        },
+        init: function(name) {
+            this.name = name;
+        },
+
+        talk: function() {
+            appendTxt('我是' + this.name);
+        },
+
+        pigType: 'normalPig'
+    });
+    var MyPig = new Pig('宝妮猪');
+    MyPig.talk();
+
+
+    var PinkPig = Pig.extend({
+        init: function(name) {
+            this.parent(name);
+        },
+
+        pigType: 'pinkPig'
+    });
+    var MyPinkPig = new PinkPig('粉红色宝妮猪');
+    MyPinkPig.talk();
+
+    var FlyablePinkPig = PinkPig.extend({
+        Implements: Flyable,
+
+        init: function(name) {
+            this.parent(name);
+        },
+
+        pigType: 'flyablePinkPig'
+    });
+
+    FlyablePinkPig.implement({
+        job: function() {
+            appendTxt('收集108粒珍珠');
+        }
+    });
+
+    var MyFlyablePinkPig = new FlyablePinkPig('飞天宝妮猪');
+    MyFlyablePinkPig.talk();
+    MyFlyablePinkPig.fly();
+    MyFlyablePinkPig.job();
+})
+</script>
+</body>
+</html>
