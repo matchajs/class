@@ -6,6 +6,7 @@
 _backup/
 *.iml
 
+
 #################
 ## Eclipse
 #################
@@ -134,6 +135,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+*.cmd
 
 #############
 ## Python

@@ -144,6 +144,10 @@ var NULL = null,
     };
 
     Class.Mutators = {
+        /**
+         * Extends is an empty function by default
+         * @constructor
+         */
         Extends: function(){},
         /**
          * Copy the properties over onto the this class's prototype
