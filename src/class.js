@@ -12,19 +12,22 @@
  * 
  */
 define(function(require, exports, module) {
+"use strict";
+
 // Helper
 var NULL = null,
-    coreToString = Object.prototype.toString;
+    coreToString = Object.prototype.toString,
 
-    function isArray(obj) {
-        return Array.isArray ?  Array.isArray(obj) : coreToString.call(obj) === '[object Array]';
-    }
-    function isFunction(obj) {
+    isArray = function(obj) {
+        return Array.isArray ? Array.isArray(obj) : coreToString.call(obj) === '[object Array]';
+    },
+
+    isFunction = function(obj) {
         return coreToString.call(obj) === '[object Function]';
-    }
+    },
 
     // see: http://jsperf.com/array-indexof-speed-test/2
-    function indexOf(arr, item) {
+    indexOf = function(arr, item) {
         return Array.prototype.indexOf ? arr.indexOf(item) : (function(){
             var len = arr.length;
             while(len--) {
@@ -34,16 +37,17 @@ var NULL = null,
             }
             return -1;
         })();
-    }
+    },
 
-    function createProto(proto) {
+    createProto = function(proto) {
         return Object.__proto__ ? {__proto__: proto} : (function(){
-            function klass() {}
+            var klass = function () {};
             klass.prototype = proto;
             return new klass();
         })();
-    }
-    function mix(target, source, filterList) {
+    },
+
+    mix = function(target, source, filterList) {
         // Copy "all" properties including inherited ones.
         var item;
         for (item in source) {
@@ -55,9 +59,9 @@ var NULL = null,
 
             target[item] = source[item];
         }
-    }
+    },
 
-    function implement(prop) {
+    implement = function(prop) {
         var self = this,
             clsMutators = Class.Mutators,
             parentExisted = self.parent,
@@ -73,9 +77,9 @@ var NULL = null,
             }
         }
         return self;
-    }
+    },
 
-    function wrap(self, name, method) {
+    wrap = function(self, name, method) {
         return function(){
             var thisFn = this,
                 tmp = thisFn.parent,
@@ -90,10 +94,10 @@ var NULL = null,
 
             return result;
         };
-    }
+    },
 
     // The base Class implementation (does nothing)
-    function Class() {}
+    Class = function() {};
 
     // Create a new Class that inherits from this class
     Class.create = function(parent, prop) {
@@ -114,10 +118,10 @@ var NULL = null,
             parentProto = createProto(parentExisted);
 
         // created class constructor
-        function newClass() {
+        var newClass = function() {
             var self = this;
             return (self.init) ? self.init.apply(self, arguments) : self;
-        }
+        };
 
         // Set a convenience property in case the parent's prototype is
         // needed later.
@@ -149,6 +153,7 @@ var NULL = null,
          * @constructor
          */
         Extends: function(){},
+
         /**
          * Copy the properties over onto the this class's prototype
          * @param items
