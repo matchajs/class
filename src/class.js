@@ -1,53 +1,50 @@
-/**
- *
- * Class Models
- *
- * thansks:
- *  - http://mootools.net/docs/core/Class/Class
- *  - http://ejohn.org/blog/simple-javascript-inheritance/
- *  - https://github.com/aralejs/class
- *  - http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/
- *
- * @author kidney<kidneyleung@gmail.com>
- * 
- */
+// Class Models
+//
+// @author kidney<kidneyleung@gmail.com>
+//
+// thansks:
+// - http://mootools.net/docs/core/Class/Class
+// - http://ejohn.org/blog/simple-javascript-inheritance/
+// - https://github.com/aralejs/class
+// - http://uxebu.com/blog/2011/02/23/object-based-inheritance-for-ecmascript-5/
 define(function(require, exports, module) {
-"use strict";
+    "use strict";
 
-// Helper
-var NULL = null,
-    coreToString = Object.prototype.toString,
+    // Helpers
+    var coreToString = Object.prototype.toString,
 
-    isArray = function(obj) {
-        return Array.isArray ? Array.isArray(obj) : coreToString.call(obj) === '[object Array]';
-    },
+        isArray = Array.isArray || function(obj) {
+            return coreToString.call(obj) == '[object Array]';
+        },
 
-    isFunction = function(obj) {
-        return coreToString.call(obj) === '[object Function]';
-    },
-
-    // see: http://jsperf.com/array-indexof-speed-test/2
-    indexOf = function(arr, item) {
-        return Array.prototype.indexOf ? arr.indexOf(item) : (function(){
-            var len = arr.length;
-            while(len--) {
-                if (arr[len] === item) {
-                    return len;
+        // see: http://jsperf.com/array-indexof-speed-test/2
+        indexOf = Array.prototype.indexOf ?
+            function(arr, item) {
+                return arr.indexOf(item);
+            } : function(arr, item) {
+                var len = arr.length;
+                while(len--) {
+                    if (arr[len] === item) {
+                        return len;
+                    }
                 }
-            }
-            return -1;
-        })();
-    },
+                return -1;
+            },
 
-    createProto = function(proto) {
-        return Object.__proto__ ? {__proto__: proto} : (function(){
-            var klass = function () {};
-            klass.prototype = proto;
-            return new klass();
-        })();
-    },
+        createProto = Object.__proto__ ?
+            function(proto) {
+                return {__proto__: proto};
+            } : function(proto) {
+                var klass = function() {};
+                klass.prototype = proto;
+                return new klass();
+            };
 
-    mix = function(target, source, filterList) {
+    function isFunction(obj) {
+        return coreToString.call(obj) === '[object Function]';
+    }
+
+    function mix(target, source, filterList) {
         // Copy "all" properties including inherited ones.
         var item;
         for (item in source) {
@@ -59,9 +56,9 @@ var NULL = null,
 
             target[item] = source[item];
         }
-    },
+    }
 
-    implement = function(prop) {
+    function implement(prop) {
         var self = this,
             clsMutators = Class.Mutators,
             parentExisted = self.parent,
@@ -77,16 +74,16 @@ var NULL = null,
             }
         }
         return self;
-    },
+    }
 
-    wrap = function(self, name, method) {
+    function wrap(self, name, method) {
         return function(){
             var thisFn = this,
                 tmp = thisFn.parent,
                 parent = self.parent,
                 result;
 
-            thisFn.parent = (parent) ? parent[name] : NULL;
+            thisFn.parent = (parent) ? parent[name] : null;
 
             result = method.apply(thisFn, arguments);
 
@@ -94,19 +91,19 @@ var NULL = null,
 
             return result;
         };
-    },
+    }
 
     // The base Class implementation (does nothing)
-    Class = function() {};
+    var Class = function() {};
 
     // Create a new Class that inherits from this class
     Class.create = function(parent, prop) {
         if (!isFunction(parent)) {
             prop = parent;
-            parent = NULL;
+            parent = null;
         }
 
-        prop = isFunction(prop) ? {init:prop} : (prop || {});
+        prop = isFunction(prop) ? {init: prop} : (prop || {});
 
         if (!parent && prop.Extends) {
             parent = prop.Extends;
@@ -120,6 +117,7 @@ var NULL = null,
         // created class constructor
         var newClass = function() {
             var self = this;
+
             return (self.init) ? self.init.apply(self, arguments) : self;
         };
 
@@ -142,6 +140,7 @@ var NULL = null,
         newClass.extend = function(prop) {
             return Class.create(this, prop);
         };
+
         newClass.implement = implement;
 
         return newClass;
