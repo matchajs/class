@@ -5,6 +5,9 @@
 
 ---
 
+[![Build Status](https://travis-ci.org/matchajs/class.png?branch=master)](https://travis-ci.org/matchajs/class)
+
+
 
 ##使用说明
 
