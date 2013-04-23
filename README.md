@@ -8,18 +8,16 @@
 
 ##使用说明
 
-###create  `Class.create([parent,]properties)`
+###create  `Class.create([parent, ]properties)`
 
 创建一个新类
 
 **参数**
 `parent` 继承的父类
 `properties` 要混入的实例属性，可以选择一下类型：
-+ `object` 类属性的集合，同时可以定义一些特殊功能，例如： `Extends` 、`Implements` 、`Statics` 、`init`
++ `object` 类属性的集合，同时可以定义一些特殊功能，例如： `Implements` 、`Statics` 、`init`
 + `function` 作为初始化方法`init`
 
-**属性：Extends**
-+ `class` 继承指定的父类，注意只能有一个父类，不支持多继承。
 
 **属性：Implements**
 + `class` 把已创建类的属性混入到类中
@@ -74,30 +72,9 @@ define(function(require, exports, module) {
 ```
 
 
-Extends Example:
+**将父类传入第一个参数实现继承**
 ```js
 /* pink-pig.js */
-define(function(require, exports, module) {
-    var Class = require('class');
-        var Pig = require('./pig');
-
-    var PinkPig = Class.create({
-        Extends: Pig,
-
-        init: function(name) {
-            this.parent(name); // 调用Pig 类中的init方法
-        },
-
-        pigType: 'pinkPig'
-    });
-
-    module.exports = PinkPig;
-});
-```
-
-**还可以将父类传入第一个参数实现继承**
-```js
-/* pink-pig-extend-parent.js */
 define(function(require, exports, module) {
     var Class = require('class');
         var Pig = require('./pig');
@@ -138,8 +115,7 @@ define(function(require, exports, module) {
             alert('我飞起来了');
         }
     };
-    var FlyablePinkPig = Class.create({
-        Extends: PinkPig,
+    var FlyablePinkPig = Class.create(PinkPig, {
         Implements: Flyable,
 
         init: function(name) {
@@ -166,7 +142,7 @@ define(function(require, exports, module) {
 
 
 
-**注意：** 由 `Class.create` 创建的类，自动具有 `extend` 和 `implement` 方法，功能基本分别与 `Extends` 和 `Implements` 一致
+**注意：** 由 `Class.create` 创建的类，自动具有 `extend` 和 `implement` 方法
 
 
 
