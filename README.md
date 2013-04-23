@@ -1,12 +1,10 @@
 #Class
 
+[![Build Status](https://travis-ci.org/matchajs/class.png?branch=master)](https://travis-ci.org/matchajs/class)
 
 实现简单类的创建和继承
 
 ---
-
-[![Build Status](https://travis-ci.org/matchajs/class.png?branch=master)](https://travis-ci.org/matchajs/class)
-
 
 
 ##使用说明
