@@ -77,7 +77,7 @@ define(function(require, exports, module) {
 /* pink-pig.js */
 define(function(require, exports, module) {
     var Class = require('class');
-        var Pig = require('./pig');
+    var Pig = require('./pig');
 
     var PinkPig = Class.create(Pig, {
         init: function(name) {
@@ -207,4 +207,4 @@ define(function(require, exports, module) {
 
 ##速度竞赛
 
-http://jsperf.com/class-speed/2
+http://jsperf.com/class-speed/4
