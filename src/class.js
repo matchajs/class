@@ -105,7 +105,7 @@ define(function(require, exports, module) {
             parent = null;
         }
 
-        prop = isFunction(prop) ? {init: prop} : (prop || {});
+        prop = isFunction(prop) ? {initialize: prop} : (prop || {});
 
         parent = parent || Class;
 
@@ -117,7 +117,7 @@ define(function(require, exports, module) {
         var newClass = function() {
             var self = this;
 
-            return (self.init) ? self.init.apply(self, arguments) : self;
+            return (self.initialize) ? self.initialize.apply(self, arguments) : self;
         };
 
         // Set a convenience property in case the parent's prototype is

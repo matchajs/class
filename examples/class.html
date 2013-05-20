@@ -26,7 +26,7 @@ seajs.use(['../src/class'], function(Class) {
         Statics:{
             title:'A1'
         },
-        init: function(name) {
+        initialize: function(name) {
             this.name = name;
         },
 
@@ -41,7 +41,7 @@ seajs.use(['../src/class'], function(Class) {
 
 
     var PinkPig = Pig.extend({
-        init: function(name) {
+        initialize: function(name) {
             this.parent(name);
         },
 
@@ -53,7 +53,7 @@ seajs.use(['../src/class'], function(Class) {
     var FlyablePinkPig = PinkPig.extend({
         Implements: Flyable,
 
-        init: function(name) {
+        initialize: function(name) {
             this.parent(name);
         },
 

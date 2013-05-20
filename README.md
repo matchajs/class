@@ -16,8 +16,8 @@
 **参数**
 `parent` 继承的父类
 `properties` 要混入的实例属性，可以选择一下类型：
-+ `object` 类属性的集合，同时可以定义一些特殊功能，例如： `Implements` 、`Statics` 、`init`
-+ `function` 作为初始化方法`init`
++ `object` 类属性的集合，同时可以定义一些特殊功能，例如： `Implements` 、`Statics` 、`initialize`
++ `function` 作为初始化方法`initialize`
 
 
 **属性：Implements**
@@ -27,7 +27,7 @@
 **属性：Statics**
 + `object` 创建类的私有属性
 
-**属性：init**
+**属性：initialize**
 + `function` 标明初始化方法，会在构建实例时调用
 
 
@@ -44,7 +44,7 @@ define(function(require, exports, module) {
             title:'A1'
         },
 
-        init: function(name) {
+        initialize: function(name) {
             this.name = name;
         },
 
@@ -81,7 +81,7 @@ define(function(require, exports, module) {
     var Pig = require('./pig');
 
     var PinkPig = Class.create(Pig, {
-        init: function(name) {
+        initialize: function(name) {
             this.parent(name); // 调用Pig 类中的init方法
         },
 
@@ -119,7 +119,7 @@ define(function(require, exports, module) {
     var FlyablePinkPig = Class.create(PinkPig, {
         Implements: Flyable,
 
-        init: function(name) {
+        initialize: function(name) {
             this.parent(name);
         },
 
@@ -157,7 +157,7 @@ define(function(require, exports, module) {
     var Pig = require('./pig');
 
     var PinkPig = Pig.extend({
-        init: function(name) {
+        initialize: function(name) {
             this.parent(name); // 调用Pig 类中的init方法
         },
 
