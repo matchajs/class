@@ -18,6 +18,7 @@ define(function(require) {
 
                 pigType: 'normalPig'
             });
+
             var MyPig = new Pig('Super Pig');
             expect(MyPig.pigType).to.equal('normalPig');
             expect(MyPig.talk).to.equal('I am Super Pig');
