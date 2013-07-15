@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Class Runner</title>
+<link type="text/css" rel="stylesheet" charset="utf-8" href="http://matchajs.org/assets/css/mocha.css">
+<script src="http://matchajs.org/source/seajs/2.0.0/sea.js"></script>
+<script src="http://matchajs.org/source/utility/mocha/1.10.0/mocha.js"></script>
+</head>
+
+<body>
+    <div id="mocha"></div>
+
+    <script>
+    (function(seajs, mocha) {
+        seajs.config({
+            paths: {
+                utility: 'http://matchajs.org/source/utility'
+            },
+            alias: {
+                'expect': 'utility/expect/0.2.0/expect',
+                'class': '../src/class'
+            }
+        });
+
+        mocha.setup('bdd');
+
+        seajs.use(['./class-spec'], function() {
+            mocha.run();
+        });
+    })(seajs, mocha);
+    </script>
+</body>
+</html>
